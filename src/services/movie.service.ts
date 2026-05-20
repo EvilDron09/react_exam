@@ -13,7 +13,12 @@ const axiosInstace = axios.create({
 })
 
 
-export const getMovie = async():Promise<IResult[]> =>{
+export const getMovies = async():Promise<IResult[]> =>{
     const {data} = await axiosInstace.get<IMovie>("/movie/popular");
     return data.results;
+}
+
+export const getMovie = async(id:string):Promise<IResult> =>{
+    const {data} = await axiosInstace.get<IResult>(`/movie/popular/${id}`);
+    return data;
 }

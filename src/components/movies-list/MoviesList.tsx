@@ -1,21 +1,22 @@
-import {useEffect, useState} from "react";
-import type {IResult} from "../../models/IResults.ts";
-import {getMovie} from "../../services/movie.service.ts";
+import {useEffect} from "react";
 import {MoviesListCard} from "../movies-list-card/MoviesListCard.tsx";
+import {useAppSelector} from "../../redux/hooks/useAppSelector.tsx";
+import {useAppDispatch} from "../../redux/hooks/useAppDispatch.tsx";
+import {movieSliceActions} from "../../redux/movieSlice/movieSlice.ts";
+import './style/moviesListStyle.css'
 
 export const MoviesList = () => {
-    const [movies, setMovies] = useState<IResult[]>([])
+    const {movies} = useAppSelector(({movieSlice}) => movieSlice);
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
-        getMovie().then((movies) =>{
-            setMovies(movies)
-        })
+       dispatch(movieSliceActions.loadMovies())
     }, []);
     return (
-        <section>
+        <main>
             {
                 movies.map(movie => <MoviesListCard key={movie.id} item={movie}/>)
             }
-        </section>
+        </main>
     );
 };
