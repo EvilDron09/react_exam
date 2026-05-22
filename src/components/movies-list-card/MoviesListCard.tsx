@@ -1,6 +1,7 @@
 import type {IResult} from "../../models/IResults.ts";
 import './style/moviesListCardStyle.css'
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+
 
 
 interface IMoviesListCard {
@@ -8,11 +9,19 @@ interface IMoviesListCard {
 }
 
 export const MoviesListCard = ({item}:IMoviesListCard) => {
+
+    const navigate = useNavigate();
+    const toGoPosterMovie = () => {
+        navigate(`/movie/${item.id}`)
+    }
     return (
-       <Link to={`/movie/${item.id}`}> <div className={"poster"}>
-            <img src={`https://image.tmdb.org//t/p/w500${item.backdrop_path}`}  alt={item.title}/>
-            <div><h3>{item.title} <span>{item.vote_average}</span></h3></div>
+        <div className={"poster"} onClick={toGoPosterMovie}>
+            <img src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}  alt={item.title}/>
+            <div>
+                <h3>{item.title} </h3>
+                <p>{item.vote_average} <span className={'star'}>&#9733;</span></p>
+            </div>
         </div>
-       </Link>
+
     );
 };

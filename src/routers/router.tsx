@@ -3,7 +3,6 @@ import {MoviesPage} from "../pages/MoviesPage.tsx";
 import {MoviePosterPage} from "../pages/MoviePosterPage.tsx";
 
 export const router = createBrowserRouter([
-    {path:"/", element:<MoviesPage/>, children:[
-            {path:"movie", element:<MoviePosterPage/>}
-        ]}
+    {path:"/", element:<MoviesPage/>, children:[]},
+    {path:"/movie/:id", element:<MoviePosterPage/>}
 ])

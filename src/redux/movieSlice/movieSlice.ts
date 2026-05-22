@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice, type PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, isFulfilled, type PayloadAction} from "@reduxjs/toolkit";
 import type {IResult} from "../../models/IResults.ts";
 import {getMovie, getMovies} from "../../services/movie.service.ts";
 
@@ -33,16 +33,24 @@ export const loadMovie = createAsyncThunk('movieSlice/loadMovie',
     }
     })
 
+
 export const movieSlice = createSlice({
     name: "movieSlice",
     initialState: initialState,
-    reducers:{},
+    reducers:{
+        changeLoadState:(state, action:PayloadAction<boolean>) => {
+            state.loadState = action.payload
+        }
+    },
     extraReducers: builder => {
         builder.addCase(loadMovies.fulfilled,(state, action:PayloadAction<IResult[]>) =>{
             state.movies = action.payload
         })
             .addCase(loadMovie.fulfilled,(state, action:PayloadAction<IResult>)=>{
             state.movie = action.payload
+        })
+            .addMatcher(isFulfilled(loadMovie,loadMovies),(state) =>{
+                state.loadState=true
         })
     }
 })

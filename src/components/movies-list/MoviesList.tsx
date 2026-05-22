@@ -4,9 +4,10 @@ import {useAppSelector} from "../../redux/hooks/useAppSelector.tsx";
 import {useAppDispatch} from "../../redux/hooks/useAppDispatch.tsx";
 import {movieSliceActions} from "../../redux/movieSlice/movieSlice.ts";
 import './style/moviesListStyle.css'
+import {Loading} from "../loading/Loading.tsx";
 
 export const MoviesList = () => {
-    const {movies} = useAppSelector(({movieSlice}) => movieSlice);
+    const {movies, loadState} = useAppSelector(({movieSlice}) => movieSlice);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -14,6 +15,9 @@ export const MoviesList = () => {
     }, []);
     return (
         <main>
+            {
+                !loadState && <section><Loading/></section>
+            }
             {
                 movies.map(movie => <MoviesListCard key={movie.id} item={movie}/>)
             }
