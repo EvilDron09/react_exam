@@ -1,8 +1,10 @@
 import * as axios from "axios";
 import {key} from "../keys/keyAndToken.ts";
 
-import type {IResult} from "../models/IResults.ts";
-import type {IMovie} from "../models/IMovie.ts";
+import type {IResult} from "../models/movie/IResults.ts";
+import type {IMovie} from "../models/movie/IMovie.ts";
+import type {IGenre} from "../models/genre/IGenre.ts";
+import type {IGenres} from "../models/genre/IGenres.ts";
 
 const axiosInstace = axios.create({
     baseURL:`https://api.themoviedb.org/3`,
@@ -21,4 +23,9 @@ export const getMovies = async():Promise<IResult[]> =>{
 export const getMovie = async(id:string):Promise<IResult> =>{
     const {data} = await axiosInstace.get<IResult>(`/movie/${id}`);
     return data;
+}
+
+export const  getGenre = async():Promise<IGenre[]> =>{
+    const {data} = await axiosInstace.get<IGenres>('/genre/movie/list');
+    return data.genres
 }

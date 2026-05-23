@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice, isFulfilled, type PayloadAction} from "@reduxjs/toolkit";
-import type {IResult} from "../../models/IResults.ts";
+import type {IResult} from "../../models/movie/IResults.ts";
 import {getMovie, getMovies} from "../../services/movie.service.ts";
 
 

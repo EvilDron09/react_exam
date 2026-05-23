@@ -12,7 +12,7 @@
     height: 100px;
     background: red;
     border-radius: 10vw;
-    animation:"loadingDivAnimation", 1s;
+    animation:loadingDivAnimation 1s reverse;
 }
 @keyframes loadingDivAnimation {
     50%{
