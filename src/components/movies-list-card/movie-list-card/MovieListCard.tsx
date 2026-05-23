@@ -9,6 +9,7 @@ export const MovieListCard = ({item}:IMovieInfo) => {
         <section>
             <div>
                 <p>Language:{item.original_language}</p>
+                <div>Genre: {item.genres.map(genre => <p>{genre.name}</p>)}</div>
                 <p>{item.overview}</p>
                 <p>Release data: {item.release_date}</p>
             </div>

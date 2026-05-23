@@ -1,3 +1,5 @@
+import type {IGenre} from "../genre/IGenre.ts";
+
 export interface IResult {
     adult: boolean,
     backdrop_path: string,
@@ -11,5 +13,6 @@ export interface IResult {
     title: string,
     video: boolean,
     vote_average: number,
-    vote_count: number
+    vote_count: number,
+    genres: IGenre[]
 }

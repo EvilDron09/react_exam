@@ -2,12 +2,17 @@
 import  {  Rating  }  from  'react-simple-star-rating'
 import {useState} from "react";
 
+
 export  const  StarsRatingMovie  =() =>  {
     const  [ rating ,  setRating ]  =  useState ( 0 )
+    const [isReadOnly, setIsReadOnly] = useState(false);
 
     const  handleRating  =  ( rate : number )  =>  {
-        setRating ( rate )
+        setRating ( rate );
+        setIsReadOnly(true)
     }
+
+
 
     return  (
         < div  className = 'App' >
@@ -16,8 +21,11 @@ export  const  StarsRatingMovie  =() =>  {
                 initialValue={rating}
                 iconsCount={10}
                 allowFraction
+                transition
+                readonly={isReadOnly}
 
             />
+
         </ div >
     )
 }
