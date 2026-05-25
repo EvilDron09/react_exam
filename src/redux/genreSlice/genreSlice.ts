@@ -32,3 +32,7 @@ export const genreSlice = createSlice ({
         })
     }
 })
+
+export const genresSliceAction = {
+    ...genreSlice.actions, loadGenres
+}
