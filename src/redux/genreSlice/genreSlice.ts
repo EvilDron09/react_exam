@@ -22,6 +22,13 @@ export const loadGenres = createAsyncThunk("genreSlice/loadGenres",
         }
     })
 
+// export const loadGenre = createAsyncThunk("genreSlice/loadGenre",
+//     async (id:string, thunkAPI)=>{
+//     try {
+//         const genre = await get
+//     }
+//     })
+
 export const genreSlice = createSlice ({
     name: "genreSlice",
     initialState: initialState,

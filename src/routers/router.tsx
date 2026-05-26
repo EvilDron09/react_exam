@@ -10,5 +10,5 @@ export const router = createBrowserRouter([
     {path:"/movieInfo/:id", element:<MovieInfoPage/>, children:[
             {path:"card", element:<MovieListCardPage/>}
         ]},
-    {path:"/gener/:id", element:<GenreBadgePage/>}
+    {path:"/genre/:id", element:<GenreBadgePage/>}
 ])

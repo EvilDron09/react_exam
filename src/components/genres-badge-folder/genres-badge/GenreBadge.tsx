@@ -1,21 +1,22 @@
 
 import {useNavigate} from "react-router-dom";
-import type {IResult} from "../../../models/movie/IResults.ts";
+import type {IGenre} from "../../../models/genre/IGenre.ts";
+
 
 
 interface IGenreBadge {
-    item:IResult
+    item:IGenre
 }
 
 
 export const GenreBadge = ({item}:IGenreBadge) => {
     const navigate = useNavigate()
     const toGoGenre = () => {
-        navigate(`/gener/${item.id}`)
+        navigate(`/genre/${item.id}`)
     }
     return (
         <>
-            <li><button onClick={toGoGenre}>{item.genres.map(genre =><p>{genre.name}</p>)}</button></li>
+            <li><button onClick={toGoGenre}>{item.name}</button></li>
         </>
     );
 };
