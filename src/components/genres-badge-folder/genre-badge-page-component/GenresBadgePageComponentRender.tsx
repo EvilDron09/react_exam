@@ -1,32 +1,43 @@
-
+import {useEffect} from "react";
 import {useAppSelector} from "../../../redux/hooks/useAppSelector.tsx";
 import {useAppDispatch} from "../../../redux/hooks/useAppDispatch.tsx";
-import {useEffect} from "react";
+import {movieSliceActions} from "../../../redux/movieSlice/movieSlice.ts";
 
 import {Loading} from "../../loading/Loading.tsx";
-import {useParams} from "react-router-dom";
 import {GenreBadgePageComponent} from "../genres-badge-page-component/GenreBadgePageComponent.tsx";
+import {useParams} from "react-router-dom";
 import {genresSliceAction} from "../../../redux/genreSlice/genreSlice.ts";
 
 
-
 export const GenresBadgePageComponentRender = () => {
+    const {id} = useParams()
+    const {moviesGenre, loadState} = useAppSelector(({movieSlice}) => movieSlice);
 
-
-    const {genres, loadState} = useAppSelector(({genreSlice}) => genreSlice);
     const dispatch = useAppDispatch();
+    const { genres } = useAppSelector(({ genreSlice }) => genreSlice);
+
 
     useEffect(() => {
-        dispatch(genresSliceAction.loadGenres())
-    }, []);
+        if (genres.length === 0) {
+            dispatch(genresSliceAction.loadGenres());
+        }
+
+        if(id)dispatch(movieSliceActions.loadMoviesGenre(id))
+    }, [id]);
+
     return (
-        <main>
+        <div>
             {
                 !loadState && <Loading/>
             }
             {
-              genres.map(genre => <GenreBadgePageComponent key={genre.id} item={genre}/>)
+
             }
-        </main>
+            {
+
+                moviesGenre.map(movie => <GenreBadgePageComponent key={movie.id} item={movie}/>)
+
+            }
+        </div>
     );
 };

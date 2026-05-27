@@ -1,16 +1,16 @@
 import {createAsyncThunk, createSlice, isFulfilled, type PayloadAction} from "@reduxjs/toolkit";
 import type {IResult} from "../../models/movie/IResults.ts";
-import {getMovie, getMovies,} from "../../services/movie.service.ts";
+import {getMovie, getMovies, getMoviesGenre,} from "../../services/movie.service.ts";
 
 
 type MovieSliceType = {
     movies: IResult[],
     movie: IResult|null,
     loadState: boolean,
-    // moviesGenre: IResult[],
+    moviesGenre: IResult[],
 }
 
-const initialState: MovieSliceType = {movies:[],movie:null, loadState:false,};
+const initialState: MovieSliceType = {movies:[],movie:null, loadState:false, moviesGenre:[]};
 
 export const loadMovies = createAsyncThunk('movieSlice/loadMovies',
     async (_,thunkAPI) =>{
@@ -34,16 +34,16 @@ export const loadMovie = createAsyncThunk('movieSlice/loadMovie',
     }
     })
 
-// export const loadMoviesGenre = createAsyncThunk<IResult[], string, { rejectValue: string }>('movieSlice/loadMoviesGenre',
-// async (genre_ids:string, thunkAPI)=>{
-//     try{
-//         const moviesGenre = await getMoviesGenre(genre_ids);
-//         return thunkAPI.fulfillWithValue(moviesGenre);
-//     }catch (e){
-//         console.log(e);
-//         return thunkAPI.rejectWithValue('error')
-//     }
-// })
+export const loadMoviesGenre = createAsyncThunk('movieSlice/loadMoviesGenre',
+async (id:string, thunkAPI)=>{
+    try{
+        const moviesGenre = await getMoviesGenre(id);
+        return thunkAPI.fulfillWithValue(moviesGenre);
+    }catch (e){
+        console.log(e);
+        return thunkAPI.rejectWithValue('error')
+    }
+})
 
 export const movieSlice = createSlice({
     name: "movieSlice",
@@ -60,10 +60,10 @@ export const movieSlice = createSlice({
             .addCase(loadMovie.fulfilled,(state, action:PayloadAction<IResult>)=>{
             state.movie = action.payload
         })
-            // .addCase(loadMoviesGenre.fulfilled,(state, action:PayloadAction<IResult[]>) =>{
-            //     state.moviesGenre = action.payload
-            // })
-            .addMatcher(isFulfilled(loadMovie,loadMovies),(state) =>{
+            .addCase(loadMoviesGenre.fulfilled,(state, action:PayloadAction<IResult[]>) =>{
+                state.moviesGenre = action.payload
+            })
+            .addMatcher(isFulfilled(loadMovie,loadMovies,loadMoviesGenre),(state) =>{
                 state.loadState=true
         })
 
@@ -71,5 +71,5 @@ export const movieSlice = createSlice({
 })
 
 export const movieSliceActions ={
-    ...movieSlice.actions, loadMovies,loadMovie,
+    ...movieSlice.actions, loadMovies,loadMovie,loadMoviesGenre
 }

@@ -7,7 +7,7 @@ import type {IGenre} from "../models/genre/IGenre.ts";
 import type {IGenres} from "../models/genre/IGenres.ts";
 
 
-const axiosInstace = axios.create({
+const axiosInstance = axios.create({
     baseURL:`https://api.themoviedb.org/3`,
     headers:{'accept': 'application/json'},
     params:{
@@ -15,23 +15,22 @@ const axiosInstace = axios.create({
     }
 })
 
-
 export const getMovies = async():Promise<IResult[]> =>{
-    const {data} = await axiosInstace.get<IMovie>("/discover/movie");
+    const {data} = await axiosInstance.get<IMovie>("/discover/movie");
     return data.results;
 }
 
 export const getMovie = async(id:string):Promise<IResult> =>{
-    const {data} = await axiosInstace.get<IResult>(`/movie/${id}`);
+    const {data} = await axiosInstance.get<IResult>(`/movie/${id}`);
     return data;
 }
 
 export const  getGenre = async():Promise<IGenre[]> =>{
-    const {data} = await axiosInstace.get<IGenres>('/genre/movie/list');
+    const {data} = await axiosInstance.get<IGenres>('/genre/movie/list');
     return data.genres;
 }
 
-// export const getMovieGenre = async (id:string):Promise<IGenre> =>{
-//     const {data} = await axiosInstace.get<IGenre>(`/discover/movie?with_genres=${id}`);
-//     return data;
-// }
+export const getMoviesGenre = async (id: string): Promise<IResult[]> => {
+    const { data } = await axiosInstance.get<{ results: IResult[] }>(`/discover/movie?with_genres=${id}`);
+    return data.results;
+};

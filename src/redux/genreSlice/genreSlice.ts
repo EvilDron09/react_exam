@@ -2,14 +2,14 @@ import {createAsyncThunk, createSlice, type PayloadAction} from "@reduxjs/toolki
 import type {IGenre} from "../../models/genre/IGenre.ts";
 import {getGenre} from "../../services/movie.service.ts";
 
+
 type GenreSliceType = {
     genres:IGenre[],
-    genre:IGenre|null,
     loadState: boolean,
 
 }
 
-const initialState: GenreSliceType = {genres:[],genre:null, loadState:false}
+const initialState: GenreSliceType = {genres:[], loadState:false}
 
 export const loadGenres = createAsyncThunk("genreSlice/loadGenres",
     async (_,thunkAPI) =>{
@@ -25,7 +25,11 @@ export const loadGenres = createAsyncThunk("genreSlice/loadGenres",
 // export const loadGenre = createAsyncThunk("genreSlice/loadGenre",
 //     async (id:string, thunkAPI)=>{
 //     try {
-//         const genre = await get
+//         const genre = await getGenre(id);
+//         return thunkAPI.fulfillWithValue(genre);
+//     }catch (e){
+//         console.log(e);
+//         return thunkAPI.rejectWithValue('error')
 //     }
 //     })
 
@@ -35,8 +39,11 @@ export const genreSlice = createSlice ({
     reducers:{},
     extraReducers: builder => {
         builder.addCase(loadGenres.fulfilled,(state, action:PayloadAction<IGenre[]>)=>{
-            state.genres=action.payload
+           state.genres = action.payload
         })
+            // .addCase(loadGenre.fulfilled,(state, action:PayloadAction<IGenre>) =>{
+            //     state.genre=action.payload
+            // })
     }
 })
 
