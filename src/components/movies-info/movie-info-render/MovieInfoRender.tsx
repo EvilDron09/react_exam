@@ -6,18 +6,23 @@ import {movieSliceActions} from "../../../redux/movieSlice/movieSlice.ts";
 import {useParams} from "react-router-dom";
 import {Loading} from "../../loading/Loading.tsx";
 import {MovieInfo} from "../movie-info/MovieInfo.tsx";
+import {Error} from "../../error/Error.tsx";
 
 
 
 
 export const MovieInfoRender = () => {
     const{id} = useParams()
-    const {movie, loadState} = useAppSelector(({movieSlice}) => movieSlice);
+    const {movie, loadState, error} = useAppSelector(({movieSlice}) => movieSlice);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         if(id) dispatch(movieSliceActions.loadMovie(id))
     }, [id]);
+
+    if(error){
+        return <Error/>
+    }
 
     return (
         <>

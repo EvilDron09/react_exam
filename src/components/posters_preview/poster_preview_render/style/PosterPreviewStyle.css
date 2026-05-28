@@ -1,0 +1,27 @@
+.running_line_container{
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    padding: 20px 0;
+}
+
+.running_line_track{
+    display: flex;
+    width: max-content;
+    animation: scrollLine 50s linear infinite  ;
+}
+
+.running_line_wrapper img{
+    height: 200px;
+    width: auto;
+    object-fit: cover;
+}
+
+@keyframes scrollLine {
+    0%{
+        transform: translateX(0);
+    }
+    100%{
+        transform: translateX(-50%);
+    }
+}

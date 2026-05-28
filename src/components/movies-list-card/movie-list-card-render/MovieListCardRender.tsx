@@ -5,16 +5,22 @@ import {useAppDispatch} from "../../../redux/hooks/useAppDispatch.tsx";
 import {useParams} from "react-router-dom";
 import {Loading} from "../../loading/Loading.tsx";
 import {MovieListCard} from "../movie-list-card/MovieListCard.tsx";
+import {Error} from "../../error/Error.tsx";
 
 export const MovieListCardRender = () => {
 
     const{id}=useParams()
-    const {movie, loadState} = useAppSelector(({movieSlice})=>movieSlice);
+    const {movie, loadState,error} = useAppSelector(({movieSlice})=>movieSlice);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
          if(id) dispatch(movieSliceActions.loadMovie(id))
     }, [id]);
+
+    if(error){
+        return <Error/>
+    }
+
 
     return (
         <>

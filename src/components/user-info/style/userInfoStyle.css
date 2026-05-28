@@ -1,0 +1,11 @@
+.user_image{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: solid 2px #d50699;
+}
+.userInfoDiv{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}

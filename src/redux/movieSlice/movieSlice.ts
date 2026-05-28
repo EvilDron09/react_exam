@@ -1,6 +1,7 @@
-import {createAsyncThunk, createSlice, isFulfilled, type PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, isFulfilled, isRejected, type PayloadAction} from "@reduxjs/toolkit";
 import type {IResult} from "../../models/movie/IResults.ts";
 import {getMovie, getMovies, getMoviesGenre,} from "../../services/movie.service.ts";
+
 
 
 type MovieSliceType = {
@@ -8,9 +9,10 @@ type MovieSliceType = {
     movie: IResult|null,
     loadState: boolean,
     moviesGenre: IResult[],
+    error:boolean
 }
 
-const initialState: MovieSliceType = {movies:[],movie:null, loadState:false, moviesGenre:[]};
+const initialState: MovieSliceType = {movies:[],movie:null, loadState:false, moviesGenre:[], error:false};
 
 export const loadMovies = createAsyncThunk('movieSlice/loadMovies',
     async (_,thunkAPI) =>{
@@ -29,7 +31,7 @@ export const loadMovie = createAsyncThunk('movieSlice/loadMovie',
         const movie = await getMovie(id);
         return thunkAPI.fulfillWithValue(movie);
     }catch (e){
-        console.log(e);
+        console.log(e)
         return thunkAPI.rejectWithValue('error')
     }
     })
@@ -51,6 +53,9 @@ export const movieSlice = createSlice({
     reducers:{
         changeLoadState:(state, action:PayloadAction<boolean>) => {
             state.loadState = action.payload
+        },
+        clearError: (state, action:PayloadAction<boolean>) =>{
+            state.error = action.payload
         }
     },
     extraReducers: builder => {
@@ -66,6 +71,9 @@ export const movieSlice = createSlice({
             .addMatcher(isFulfilled(loadMovie,loadMovies,loadMoviesGenre),(state) =>{
                 state.loadState=true
         })
+            .addMatcher(isRejected(loadMovie,loadMovies,loadMoviesGenre),(state) =>{
+                state.error = true;
+            })
 
     }
 })

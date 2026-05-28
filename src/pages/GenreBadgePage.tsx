@@ -9,7 +9,7 @@ export const GenreBadgePage = () => {
     return (
        <>
            <Header/>
-             <GenresBadgePageComponentRender/>
+           <GenresBadgePageComponentRender/>
            <Outlet/>
        </>
     );
