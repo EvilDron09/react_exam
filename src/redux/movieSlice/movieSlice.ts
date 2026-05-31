@@ -15,9 +15,9 @@ type MovieSliceType = {
 const initialState: MovieSliceType = {movies:[],movie:null, loadState:false, moviesGenre:[], error:false};
 
 export const loadMovies = createAsyncThunk('movieSlice/loadMovies',
-    async (_,thunkAPI) =>{
+    async (page:number,thunkAPI) =>{
     try {
-        const movies = await getMovies();
+        const movies = await getMovies(page);
         return thunkAPI.fulfillWithValue(movies);
     }catch (e){
         console.log(e)

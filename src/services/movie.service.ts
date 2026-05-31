@@ -15,7 +15,7 @@ const axiosInstance = axios.create({
     }
 })
 
-export const getMovies = async():Promise<IResult[]> =>{
+export const getMovies = async(page:number):Promise<IResult[]> =>{
     const {data} = await axiosInstance.get<IMovie>("/discover/movie");
     return data.results;
 }
