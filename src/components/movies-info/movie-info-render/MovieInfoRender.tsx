@@ -1,7 +1,7 @@
 
 import {useAppSelector} from "../../../redux/hooks/useAppSelector.tsx";
 import {useAppDispatch} from "../../../redux/hooks/useAppDispatch.tsx";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {movieSliceActions} from "../../../redux/movieSlice/movieSlice.ts";
 import {useParams} from "react-router-dom";
 import {Loading} from "../../loading/Loading.tsx";

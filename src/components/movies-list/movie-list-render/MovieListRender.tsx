@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {useAppSelector} from "../../../redux/hooks/useAppSelector.tsx";
 import {useAppDispatch} from "../../../redux/hooks/useAppDispatch.tsx";
 import {movieSliceActions} from "../../../redux/movieSlice/movieSlice.ts";
@@ -7,27 +7,23 @@ import {Loading} from "../../loading/Loading.tsx";
 import {MovieList} from "../movie-list/MovieList.tsx";
 import {PosterPreviewRender} from "../../posters_preview/poster_preview_render/PosterPreviewRender.tsx";
 import {Error} from "../../error/Error.tsx";
+import {useSearchParams} from "react-router-dom";
 
 export const MovieListRender = () => {
 
+    const [searchParams, setSearchParams] = useSearchParams()
+    const page = Number(searchParams.get('page'))||1
+    const totalPage = 500;
 
-    const pagination =  Array.from({length: 1000 }, (_, i) => `${i + 1}`);
-    const itemOnPage = 10;
-
-    const [page, setPages] = useState(1);
-
-    const indexOfLastItem = page * itemOnPage;
-    const indexOfFirstItem = indexOfLastItem - itemOnPage;
-
-    const currentItem = pagination.slice(indexOfFirstItem, indexOfLastItem);
-
-    const totalPage = Math.ceil(pagination.length/itemOnPage);
+    const handlerPage = (newPage:number)=>{
+        setSearchParams({page:String(newPage)})
+    }
 
     const {movies, loadState, error} = useAppSelector(({movieSlice}) => movieSlice);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-       dispatch(movieSliceActions.loadMovies(page))
+       dispatch(movieSliceActions.loadPageMovies(page))
     }, [page]);
 
     if(error){
@@ -42,15 +38,15 @@ export const MovieListRender = () => {
             }
             <section className={"renderMovie"}>
                 {
-                   movies.map(movie => <MovieList key={movie.id} item={movie}/>)
+                  movies && movies.map(movie => <MovieList key={movie.id} item={movie}/>)
                 }
-                <div>
-                    <button onClick={() => setPages(prev => Math.max(prev -1,1) )} disabled={page === 1}>Back</button>
-                    <h3>{page}</h3>
-                    <button onClick={() => setPages(prev => Math.min(prev +1 ,totalPage))} disabled={page === totalPage}>Forward</button>
-                </div>
 
             </section>
+            <div>
+                <button onClick={() => handlerPage(Math.max(page -1,1) )} disabled={page === 1}>Back</button>
+                <h3>{page}</h3>
+                <button onClick={() => handlerPage(Math.min(page +1 ,totalPage))} disabled={page === totalPage}>Forward</button>
+            </div>
             <PosterPreviewRender/>
         </main>
     );

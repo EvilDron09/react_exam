@@ -1,24 +1,36 @@
 import {createAsyncThunk, createSlice, isFulfilled, isRejected, type PayloadAction} from "@reduxjs/toolkit";
 import type {IResult} from "../../models/movie/IResults.ts";
-import {getMovie, getMovies, getMoviesGenre,} from "../../services/movie.service.ts";
+import {getMovie, getMovies, getMoviesGenre, getPageMovies,} from "../../services/movie.service.ts";
 
 
 
 type MovieSliceType = {
     movies: IResult[],
+    preview: IResult[]
     movie: IResult|null,
     loadState: boolean,
     moviesGenre: IResult[],
     error:boolean
 }
 
-const initialState: MovieSliceType = {movies:[],movie:null, loadState:false, moviesGenre:[], error:false};
+const initialState: MovieSliceType = {movies:[],preview:[],movie:null, loadState:false, moviesGenre:[], error:false};
 
-export const loadMovies = createAsyncThunk('movieSlice/loadMovies',
+export const loadPageMovies = createAsyncThunk('movieSlice/loadPageMovies',
     async (page:number,thunkAPI) =>{
     try {
-        const movies = await getMovies(page);
+        const movies = await getPageMovies(page);
         return thunkAPI.fulfillWithValue(movies);
+    }catch (e){
+        console.log(e)
+        return thunkAPI.rejectWithValue('error')
+    }
+    })
+
+export const loadMovies = createAsyncThunk('movieSlice/loadMovies',
+    async (_,thunkAPI)=>{
+    try {
+        const preview = await getMovies();
+        return thunkAPI.fulfillWithValue(preview);
     }catch (e){
         console.log(e)
         return thunkAPI.rejectWithValue('error')
@@ -59,19 +71,22 @@ export const movieSlice = createSlice({
         }
     },
     extraReducers: builder => {
-        builder.addCase(loadMovies.fulfilled,(state, action:PayloadAction<IResult[]>) =>{
+        builder.addCase(loadPageMovies.fulfilled,(state, action:PayloadAction<IResult[]>) =>{
             state.movies = action.payload
         })
+            .addCase(loadMovies.fulfilled,(state, action:PayloadAction<IResult[]>)=>{
+                state.preview=action.payload
+            })
             .addCase(loadMovie.fulfilled,(state, action:PayloadAction<IResult>)=>{
             state.movie = action.payload
         })
             .addCase(loadMoviesGenre.fulfilled,(state, action:PayloadAction<IResult[]>) =>{
                 state.moviesGenre = action.payload
             })
-            .addMatcher(isFulfilled(loadMovie,loadMovies,loadMoviesGenre),(state) =>{
+            .addMatcher(isFulfilled(loadMovie,loadPageMovies,loadMoviesGenre),(state) =>{
                 state.loadState=true
         })
-            .addMatcher(isRejected(loadMovie,loadMovies,loadMoviesGenre),(state) =>{
+            .addMatcher(isRejected(loadMovie,loadPageMovies,loadMoviesGenre),(state) =>{
                 state.error = true;
             })
 
@@ -79,5 +94,5 @@ export const movieSlice = createSlice({
 })
 
 export const movieSliceActions ={
-    ...movieSlice.actions, loadMovies,loadMovie,loadMoviesGenre
+    ...movieSlice.actions, loadPageMovies,loadMovie,loadMovies,loadMoviesGenre
 }
