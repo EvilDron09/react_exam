@@ -11,11 +11,13 @@ export const GenreBadgeRender = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(genresSliceAction.loadGenres())
+        dispatch(genresSliceAction.loadGenres());
+        dispatch(genresSliceAction.closeMenu());
     }, []);
     const navigate = useNavigate();
     const toGoMovieList = () => {
-        navigate(`/`)
+        navigate(`/`);
+        dispatch(genresSliceAction.closeMenu());
     }
 
     return (

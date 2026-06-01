@@ -23,8 +23,17 @@ export const MovieListRender = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-       dispatch(movieSliceActions.loadPageMovies(page))
+       dispatch(movieSliceActions.loadPageMovies(page));
+
     }, [page]);
+
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+        })
+    }, [page]);
+
+
 
     if(error){
         return <Error/>
