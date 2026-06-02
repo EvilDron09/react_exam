@@ -5,11 +5,10 @@ import {getGenre} from "../../services/movie.service.ts";
 
 type GenreSliceType = {
     genres:IGenre[],
-    menu:boolean
 
 }
 
-const initialState: GenreSliceType = {genres:[], menu:false}
+const initialState: GenreSliceType = {genres:[]}
 
 export const loadGenres = createAsyncThunk("genreSlice/loadGenres",
     async (_,thunkAPI) =>{
@@ -26,16 +25,7 @@ export const loadGenres = createAsyncThunk("genreSlice/loadGenres",
 export const genreSlice = createSlice ({
     name: "genreSlice",
     initialState: initialState,
-    reducers: {
-        changeCloseMenu: (state) => {
-            state.menu = !state.menu
-        },
-
-    closeMenu: (state) => {
-        state.menu = false;
-    },
-
-    },
+    reducers: {},
     extraReducers: builder => {
         builder.addCase(loadGenres.fulfilled, (state, action: PayloadAction<IGenre[]>) => {
             state.genres = action.payload

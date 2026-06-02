@@ -12,12 +12,10 @@ export const GenreBadgeRender = () => {
 
     useEffect(() => {
         dispatch(genresSliceAction.loadGenres());
-        dispatch(genresSliceAction.closeMenu());
     }, []);
     const navigate = useNavigate();
     const toGoMovieList = () => {
         navigate(`/`);
-        dispatch(genresSliceAction.closeMenu());
     }
 
     return (

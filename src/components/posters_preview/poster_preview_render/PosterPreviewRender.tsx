@@ -7,13 +7,13 @@ import './style/PosterPreviewStyle.css'
 
 export const PosterPreviewRender = () => {
 
-    const {movies} = useAppSelector(({movieSlice}) => movieSlice);
+    const {popularMovie} = useAppSelector(({movieSlice}) => movieSlice);
     const dispatch = useAppDispatch();
 
-    const duplicatedMovies = [...movies, ...movies];
+    const duplicatedMovies = [...popularMovie, ...popularMovie];
 
     useEffect(() => {
-        dispatch(movieSliceActions.loadMovies())
+        dispatch(movieSliceActions.loadPopularMovie())
     }, []);
 
     return (
