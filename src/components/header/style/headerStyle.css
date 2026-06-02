@@ -4,3 +4,11 @@ header{
     justify-content: center;
     align-items: center;
 }
+ .genres {
+     position: relative;
+     display: inline-block;
+ }
+
+ .genres>div{
+     position: absolute;
+ }
