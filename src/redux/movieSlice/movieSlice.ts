@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice, isFulfilled, isRejected, type PayloadAction} from "@reduxjs/toolkit";
 import type {IResult} from "../../models/movie/IResults.ts";
-import {getMovie, getMovies, getMoviesGenre, getPageMovies, getPopularMovie,} from "../../services/movie.service.ts";
+import {getMovie, getMovies, getMoviesGenre, getPageMovies, getPopularMovie, getSearch,} from "../../services/movie.service.ts";
 
 
 
@@ -11,10 +11,11 @@ type MovieSliceType = {
     loadState: boolean,
     moviesGenre: IResult[],
     error:boolean,
-    popularMovie:IResult[]
+    popularMovie:IResult[],
+    search:IResult[]
 }
 
-const initialState: MovieSliceType = {movies:[],preview:[],movie:null, loadState:false, moviesGenre:[], error:false, popularMovie:[]};
+const initialState: MovieSliceType = {movies:[],preview:[],movie:null, loadState:false, moviesGenre:[], error:false, popularMovie:[], search:[]};
 
 export const loadPageMovies = createAsyncThunk('movieSlice/loadPageMovies',
     async (page:number,thunkAPI) =>{
@@ -76,6 +77,17 @@ export const loadPopularMovie = createAsyncThunk('movieSlice/loadPopularMovie',
     }
     })
 
+export const loadSearch = createAsyncThunk('movieSlice/loadSearch',
+    async (query:string, thunkAPI)=>{
+    try {
+        const search = await getSearch(query);
+        return thunkAPI.fulfillWithValue(search);
+    }catch (e) {
+        console.log(e);
+        return thunkAPI.rejectWithValue('error')
+    }
+    })
+
 export const movieSlice = createSlice({
     name: "movieSlice",
     initialState: initialState,
@@ -103,10 +115,13 @@ export const movieSlice = createSlice({
             .addCase(loadPopularMovie.fulfilled,(state, action:PayloadAction<IResult[]>) =>{
                 state.popularMovie = action.payload
             })
-            .addMatcher(isFulfilled(loadMovie,loadPageMovies,loadMoviesGenre),(state) =>{
+            .addCase(loadSearch.fulfilled,(state, action:PayloadAction<IResult[]>) =>{
+                state.search = action.payload
+            })
+            .addMatcher(isFulfilled(loadMovie,loadPageMovies,loadMoviesGenre,loadSearch),(state) =>{
                 state.loadState=true
         })
-            .addMatcher(isRejected(loadMovie,loadPageMovies,loadMoviesGenre),(state) =>{
+            .addMatcher(isRejected(loadMovie,loadPageMovies,loadMoviesGenre, loadSearch),(state) =>{
                 state.error = true;
             })
 
@@ -114,5 +129,5 @@ export const movieSlice = createSlice({
 })
 
 export const movieSliceActions ={
-    ...movieSlice.actions, loadPageMovies,loadMovie,loadMovies,loadMoviesGenre,loadPopularMovie
+    ...movieSlice.actions, loadPageMovies,loadMovie,loadMovies,loadMoviesGenre,loadPopularMovie,loadSearch
 }

@@ -43,4 +43,9 @@ export const getMoviesGenre = async (id: string, page:number): Promise<IResult[]
 export const getPopularMovie = async (): Promise<IResult[]> =>{
     const {data} = await axiosInstance.get<IMovie>(`/discover/movie?sort_by=popularity.desc`);
     return data.results
+};
+
+export const getSearch = async(query:string): Promise<IResult[]> =>{
+    const {data} = await axiosInstance.get<IMovie>(`/search/movie?query=${encodeURIComponent(query)}`);
+    return data.results
 }
