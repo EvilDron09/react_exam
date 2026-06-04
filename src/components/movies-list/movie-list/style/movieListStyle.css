@@ -1,0 +1,27 @@
+.poster{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 510px;
+    padding: 5px;
+    border: #889713 solid 3px;
+    border-radius: 10px;
+    transition: 0.5s;
+    gap: 5px;
+}
+.poster>div>h3{
+    color: #bee3be;
+    font-size: 25px;
+}
+.poster>div>p{
+    color: #f6f0de;
+    font-size: 20px;
+}
+.poster>div>p>span{
+    color: gold;
+    margin-left: 5px;
+}
+ .poster:hover{
+    transform: scale(1.1);
+     transition: 0.5s;
+ }

@@ -1,8 +1,6 @@
 import type {IResult} from "../../../models/movie/IResults.ts";
-
 import {useNavigate} from "react-router-dom";
-
-
+import './style/movieListStyle.css'
 
 interface IMoviesListCard {
     item: IResult

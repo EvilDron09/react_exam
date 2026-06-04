@@ -1,0 +1,8 @@
+.page{
+    width: 1400px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background: radial-gradient(circle,rgba(71, 48, 122, 1) 14%, rgba(0, 0, 0, 1) 29%, rgba(150, 7, 232, 1) 61%, rgba(101, 30, 105, 1) 98%);
+    background-attachment: fixed;
+}

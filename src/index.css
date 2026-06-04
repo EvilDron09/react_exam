@@ -5,4 +5,14 @@
     list-style: none;
     text-decoration: none;
     color: inherit;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+body {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: #0e010d;
 }
