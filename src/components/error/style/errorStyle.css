@@ -1,0 +1,11 @@
+.error{
+    height: 89vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.error>h1{
+    font-size: 50px;
+    color: #cc3f3f;
+}

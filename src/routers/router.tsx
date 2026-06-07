@@ -5,11 +5,14 @@ import {MovieListCardPage} from "../pages/MovieListCardPage.tsx";
 import {GenreBadgePage} from "../pages/GenreBadgePage.tsx";
 
 
+
+
 export const router = createBrowserRouter([
     {path:"/", element:<MoviesPage/>, children:[]},
     {path:"/genre/:id", element:<GenreBadgePage/>},
     {path:"/movieInfo/:id", element:<MovieInfoPage/>, children:[
             {path:"card", element:<MovieListCardPage/>}
         ]},
+
 
 ])
