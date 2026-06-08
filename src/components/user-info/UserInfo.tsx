@@ -5,7 +5,7 @@ export const UserInfo = () => {
     return (
         <div className={"userInfoDiv"}>
             <div>
-                <img src={userImage} alt="user" className={"user_image"}/>
+                <img src={userImage} alt="user" className={"userImage"}/>
             </div>
             <p>User</p>
 

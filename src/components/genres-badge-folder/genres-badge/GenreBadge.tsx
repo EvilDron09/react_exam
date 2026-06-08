@@ -1,7 +1,7 @@
 
 import {useNavigate} from "react-router-dom";
 import type {IGenre} from "../../../models/genre/IGenre.ts";
-
+import './style/GenreBadgeStyle.css'
 
 
 interface IGenreBadge {
@@ -19,7 +19,7 @@ export const GenreBadge = ({item}:IGenreBadge) => {
     }
     return (
         <>
-            <li><button onClick={toGoGenre}>{item.name}</button></li>
+            <li className={'genresBadge'}><button onClick={toGoGenre}>{item.name}</button></li>
         </>
     );
 };

@@ -4,6 +4,7 @@ import {useEffect} from "react";
 import {genresSliceAction} from "../../../redux/genreSlice/genreSlice.ts";
 import {GenreBadge} from "../genres-badge/GenreBadge.tsx";
 import {useNavigate} from "react-router-dom";
+import './style/GenreBadgeRenderStyle.css';
 
 export const GenreBadgeRender = () => {
 
@@ -19,11 +20,13 @@ export const GenreBadgeRender = () => {
     }
 
     return (
-        <ul>
-            {
-                genres.map(genre => <GenreBadge key={genre.id} item={genre}/>)
-            }
-            <li><button onClick={ toGoMovieList}>All movie</button></li>
-        </ul>
+        <div className={'genresBadgeRender'}>
+            <ul>
+                {
+                    genres.map(genre => <GenreBadge key={genre.id} item={genre}/>)
+                }
+                <li><button onClick={ toGoMovieList}>All movie</button></li>
+            </ul>
+        </div>
     );
 };

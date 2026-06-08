@@ -5,7 +5,7 @@ interface IPosterPreview {
     item:IResult
 }
 
-export const PosterPreview = ({item}:IPosterPreview) => {
+export const PopularMoviesPosterPreview = ({item}:IPosterPreview) => {
     const navigate = useNavigate();
     const toGoPosterMovie = () => {
         navigate(`/movieInfo/${item.id}`)

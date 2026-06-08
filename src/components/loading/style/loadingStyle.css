@@ -1,9 +1,9 @@
 .loading{
-    width: 100vw;
-    height: 100vh;
+    width: 1400px;
+    height: 80vh;
     display: flex;
     justify-content: center;
-    margin-left: 47.5%;
+    align-items: center;
     flex-direction: column;
 
 }
@@ -29,7 +29,7 @@
 
 .loading>h2 {
     color: #afd6af;
-    position: fixed;
     margin-bottom: 300px;
+    position: fixed;
     font-size: 35px;
 }

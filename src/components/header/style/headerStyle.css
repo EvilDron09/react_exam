@@ -1,14 +1,71 @@
 header{
-    height: 100px;
+    height: 150px;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 100px;
+}
+
+header>div{
+    display: flex;
+    gap: 20px;
     align-items: center;
 }
  .genres {
      position: relative;
-     display: inline-block;
+ }
+
+ .genres>button{
+     color: #afd6af;
+     font-size: 18px;
+     width: 70px;
+     height: 30px;
+ }
+
+ .genres>button:active{
+     transform: scale(0.97);
  }
 
  .genres>div{
      position: absolute;
+ }
+
+ header>h1{
+     font-size: 50px;
+     color: #3cbaba;
+ }
+
+ form{
+     display: flex;
+     gap: 10px;
+     position: relative
+ }
+
+ form>input{
+     border: #7af1e6 solid 2px;
+     border-radius: 5px;
+     width: 200px;
+     height: 22px;
+     color: #afd6af;
+     padding-left: 5px;
+
+ }
+form>input::placeholder{
+    color: rgb(175 214 175 / 0.87);
+}
+
+ .searchError{
+     color: rgb(234 225 225 / 0.72);
+     background: rgb(245 246 245 / 0.45);
+     display: flex;
+     justify-content: center;
+     position: absolute;
+     top: 25px;
+
+ }
+
+
+ form>button{
+     color: #b7eaea;
+     font-size: 16px;
  }

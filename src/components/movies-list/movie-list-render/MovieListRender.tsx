@@ -5,7 +5,7 @@ import {movieSliceActions} from "../../../redux/movieSlice/movieSlice.ts";
 import './style/moviesListRenderStyle.css'
 import {Loading} from "../../loading/Loading.tsx";
 import {MovieList} from "../movie-list/MovieList.tsx";
-import {PosterPreviewRender} from "../../posters_preview/poster_preview_render/PosterPreviewRender.tsx";
+import {PopularMoviesPosterPreviewRender} from "../../posters_preview/poster_preview_poster_preview_render/PopularMoviesPosterPreviewRender.tsx";
 import {Error} from "../../error/Error.tsx";
 import {useSearchParams} from "react-router-dom";
 
@@ -56,7 +56,7 @@ export const MovieListRender = () => {
                 <h3>{page}</h3>
                 <button onClick={() => handlerPage(Math.min(page +1 ,totalPage))} disabled={page === totalPage}>Forward</button>
             </div>
-            <PosterPreviewRender/>
+            <PopularMoviesPosterPreviewRender/>
         </main>
     );
 };

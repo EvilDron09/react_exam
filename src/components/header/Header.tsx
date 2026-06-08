@@ -2,7 +2,7 @@ import './style/headerStyle.css'
 import {type SyntheticEvent, useState} from "react";
 import {GenreBadgeRender} from "../genres-badge-folder/genres-badge-render/GenreBadgeRender.tsx";
 import {UserInfo} from "../user-info/UserInfo.tsx";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 import {useAppDispatch} from "../../redux/hooks/useAppDispatch.tsx";
 import {loadSearch} from "../../redux/movieSlice/movieSlice.ts";
@@ -33,10 +33,10 @@ export const Header = () => {
                    navigate((`/movieInfo/${firstMovie.id}`));
                }else{
                 setSearchError('film not found')
+                   setTimeout(() => setSearchError(null),1500)
                }
            }catch (e){
                console.log(e)
-               setSearchError('film not found')
            }finally {
                setSearchQuery('')
            }
@@ -49,14 +49,10 @@ export const Header = () => {
     };
 
 
-    const toGoMovieList = () => {
-        navigate(`/`)
-    }
-
     return (
         <header>
             <UserInfo/>
-            <h1><button onClick={toGoMovieList}>React Exam</button></h1>
+            <h1><Link to={'/'}>React Exam</Link></h1>
             <div>
                 <div className={"genres"}>
                     <button onClick={toggleGenres} >Genres</button>
@@ -68,15 +64,14 @@ export const Header = () => {
                 </div>
                 <form onSubmit={handleSearchSubmit}>
                     <input type="text" value={searchQuery} placeholder={"movie search"} onChange={handleInputChange}/>
-                    <button type="submit">Search</button>
+                    {searchError &&
+                        <div className={'searchError'}>
+                            <p >{searchError}</p>
+                        </div>  }
+                        <button type="submit">Search</button>
+
                 </form>
             </div>
-            {searchError &&
-                <div>
-                    <h2>{searchError}</h2>
-                </div>
-            }
-
         </header>
     );
 };

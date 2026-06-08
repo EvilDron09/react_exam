@@ -7,9 +7,9 @@ import {Loading} from "../../loading/Loading.tsx";
 import {useParams, useSearchParams} from "react-router-dom";
 import {genresSliceAction} from "../../../redux/genreSlice/genreSlice.ts";
 import {MovieList} from "../../movies-list/movie-list/MovieList.tsx";
-import {PosterPreviewRender} from "../../posters_preview/poster_preview_render/PosterPreviewRender.tsx";
+import {PopularMoviesPosterPreviewRender} from "../../posters_preview/poster_preview_poster_preview_render/PopularMoviesPosterPreviewRender.tsx";
 import {Error} from "../../error/Error.tsx";
-
+import './style/GenresBadgePageComponentRenderStyle.css'
 
 export const GenresBadgePageComponentRender = () => {
     const {id} = useParams()
@@ -55,7 +55,7 @@ export const GenresBadgePageComponentRender = () => {
                 !loadState && <Loading/>
             }
             {
-               currentGenre && <h3>{currentGenre.name}</h3>
+               currentGenre && <h3 className={'genre'}>{currentGenre.name}</h3>
             }
               <section className={"renderMovie"}>
                 {
@@ -67,7 +67,7 @@ export const GenresBadgePageComponentRender = () => {
                 <h3>{page}</h3>
                 <button onClick={() => handlerPage(Math.min(page +1 ,totalPage))} disabled={page === totalPage}>Forward</button>
             </div>
-                <PosterPreviewRender/>
+                <PopularMoviesPosterPreviewRender/>
         </main>
     );
 };

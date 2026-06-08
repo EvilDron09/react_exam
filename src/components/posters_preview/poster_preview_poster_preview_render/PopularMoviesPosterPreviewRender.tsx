@@ -2,10 +2,10 @@ import {useAppSelector} from "../../../redux/hooks/useAppSelector.tsx";
 import {useAppDispatch} from "../../../redux/hooks/useAppDispatch.tsx";
 import {useEffect} from "react";
 import {movieSliceActions} from "../../../redux/movieSlice/movieSlice.ts";
-import {PosterPreview} from "../poster_preview/PosterPreview.tsx";
-import './style/PosterPreviewStyle.css'
+import {PopularMoviesPosterPreview} from "../popular_movies_poster_preview/PopularMoviesPosterPreview.tsx";
+import './style/PopularMoviesStyle.css'
 
-export const PosterPreviewRender = () => {
+export const PopularMoviesPosterPreviewRender = () => {
 
     const {popularMovie} = useAppSelector(({movieSlice}) => movieSlice);
     const dispatch = useAppDispatch();
@@ -22,7 +22,7 @@ export const PosterPreviewRender = () => {
                 {
                     duplicatedMovies.map((movie, index) =>
                         <div className={"running_line_wrapper"} key={`${movie.id}-${index}`}>
-                            <PosterPreview key={movie.id} item={movie}/>
+                            <PopularMoviesPosterPreview key={movie.id} item={movie}/>
                         </div>)
                 }
             </div>
