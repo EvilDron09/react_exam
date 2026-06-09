@@ -7,9 +7,11 @@ import {Loading} from "../../loading/Loading.tsx";
 import {useParams, useSearchParams} from "react-router-dom";
 import {genresSliceAction} from "../../../redux/genreSlice/genreSlice.ts";
 import {MovieList} from "../../movies-list/movie-list/MovieList.tsx";
-import {PopularMoviesPosterPreviewRender} from "../../posters_preview/poster_preview_poster_preview_render/PopularMoviesPosterPreviewRender.tsx";
+import {PopularMoviesPosterRender} from "../../popular_movies/popular_movies_poster_render/PopularMoviesPosterRender.tsx";
 import {Error} from "../../error/Error.tsx";
-import './style/GenresBadgePageComponentRenderStyle.css'
+import './style/GenresBadgePageComponentRenderStyle.css';
+import '../../search/style/searchStyle.css'
+import {PopularPosterPreviewRender} from "../../poster_preview/popular_poster_preview_render/PopularPosterPreviewRender.tsx";
 
 export const GenresBadgePageComponentRender = () => {
     const {id} = useParams()
@@ -49,11 +51,12 @@ export const GenresBadgePageComponentRender = () => {
     }
 
     return (
-        <main>
+        <div>
 
             {
                 !loadState && <Loading/>
             }
+              <PopularPosterPreviewRender/>
             {
                currentGenre && <h3 className={'genre'}>{currentGenre.name}</h3>
             }
@@ -62,12 +65,12 @@ export const GenresBadgePageComponentRender = () => {
                      moviesGenre.map(movie => <MovieList key={movie.id} item={movie}/>)
                 }
               </section>
-            <div>
+            <div className={'search'}>
                 <button onClick={() => handlerPage(Math.max(page -1,1) )} disabled={page === 1}>Back</button>
                 <h3>{page}</h3>
                 <button onClick={() => handlerPage(Math.min(page +1 ,totalPage))} disabled={page === totalPage}>Forward</button>
             </div>
-                <PopularMoviesPosterPreviewRender/>
-        </main>
+                <PopularMoviesPosterRender/>
+        </div>
     );
 };

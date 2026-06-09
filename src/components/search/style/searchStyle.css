@@ -1,0 +1,27 @@
+.search{
+    margin-top: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: #afd6af;
+}
+.search>button{
+    font-size: 16px;
+    border: #3cbaba solid 1px;
+    border-radius: 5px;
+    padding: 2px;
+}
+.search>p{
+    font-size: 20px ;
+}
+
+.search>button:active{
+    transform: scale(0.9);
+}
+
+.search>button:disabled{
+    transform: none;
+    background: gray;
+}

@@ -3,7 +3,6 @@ import {type SyntheticEvent, useState} from "react";
 import {GenreBadgeRender} from "../genres-badge-folder/genres-badge-render/GenreBadgeRender.tsx";
 import {UserInfo} from "../user-info/UserInfo.tsx";
 import {Link, useNavigate} from "react-router-dom";
-
 import {useAppDispatch} from "../../redux/hooks/useAppDispatch.tsx";
 import {loadSearch} from "../../redux/movieSlice/movieSlice.ts";
 import * as React from "react";

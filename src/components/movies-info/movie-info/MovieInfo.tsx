@@ -1,13 +1,14 @@
 import type {IResult} from "../../../models/movie/IResults.ts";
 import {StarsRatingMovie} from "../../stars-rating/StarsRatingMovie.tsx";
-import {Link} from "react-router-dom";
-import './style/movieInfoStyle.css'
+import './style/movieInfoStyle.css';
+
 
 interface IMovieListCard {
     item: IResult
 }
 
 export const MovieInfo = ({item}:IMovieListCard) => {
+
 
     return (
         <div className={'movieInfo'}>
@@ -21,7 +22,6 @@ export const MovieInfo = ({item}:IMovieListCard) => {
                 <div>
                     <StarsRatingMovie/>
                 </div>
-                <button><Link to={'./card'}>Full information</Link></button>
             </div>
         </div>
 

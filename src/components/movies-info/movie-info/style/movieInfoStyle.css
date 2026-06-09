@@ -25,12 +25,3 @@
     color: gold;
     margin-left: 5px;
 }
-
-.movieInfo>div:last-child>button{
-    border: #ff0000 solid 2px;
-    border-radius: 10px;
-    padding: 3px;
-    background: #85054f;
-    color: #7fdcd5;
-    font-size: 16px;
-}

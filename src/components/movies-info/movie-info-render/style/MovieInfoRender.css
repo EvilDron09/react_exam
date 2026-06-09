@@ -1,0 +1,16 @@
+.fullInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+    margin: 0 20px 30px 20px;
+}
+
+.fullInfo>button{
+    border: #ff0000 solid 2px;
+    border-radius: 10px;
+    padding: 3px;
+    background: #85054f;
+    color: #7fdcd5;
+    font-size: 16px;
+}
