@@ -1,17 +1,18 @@
 import * as axios from "axios";
-import {key} from "../keys/keyAndToken.ts";
+import {key, token} from "../keys/keyAndToken.ts";
 
 import type {IResult} from "../models/movie/IResults.ts";
 import type {IMovie} from "../models/movie/IMovie.ts";
 import type {IGenre} from "../models/genre/IGenre.ts";
 import type {IGenres} from "../models/genre/IGenres.ts";
+import type {IRating} from "../models/rating/IRating.ts";
 
 
 const axiosInstance = axios.create({
     baseURL:`https://api.themoviedb.org/3`,
-    headers:{'accept': 'application/json'},
+    headers:{'accept': 'application/json', 'Authorization': `Bearer ${token}`},
     params:{
-        api_key:key
+        api_key:key,
     }
 })
 
@@ -48,4 +49,20 @@ export const getPopularMovie = async (): Promise<IResult[]> =>{
 export const getSearch = async(query:string): Promise<IResult[]> =>{
     const {data} = await axiosInstance.get<IMovie>(`/search/movie?query=${encodeURIComponent(query)}`);
     return data.results
+}
+
+export const createSession = async(): Promise<string> =>{
+    const {data} = await axiosInstance.get<{guest_session_id:string}>('/authentication/guest_session/new');
+    return data.guest_session_id;
+}
+
+
+export const postRating = async (movie_id: number, rating:number): Promise<IRating> =>{
+    await axiosInstance.post<IRating>(`/movie/${movie_id}/rating`, { value: rating },{
+
+    });
+    return {
+        movie_id: movie_id,
+        rating: rating
+    };
 }

@@ -20,7 +20,7 @@ export const MovieInfo = ({item}:IMovieListCard) => {
                 <h3>{item.original_title}</h3>
                 <p>{item.vote_average}<span className={'star'}>&#9733;</span>/ Vote count: {item.vote_count}</p>
                 <div>
-                    <StarsRatingMovie/>
+                    <StarsRatingMovie item={item}/>
                 </div>
             </div>
         </div>

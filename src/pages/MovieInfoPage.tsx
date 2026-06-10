@@ -4,6 +4,8 @@ import {Outlet} from "react-router-dom";
 import './style/pageStyle.css'
 
 export const MovieInfoPage = () => {
+
+
     return (
         <div className={'page'}>
             <Header/>
