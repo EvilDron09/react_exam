@@ -28,8 +28,8 @@ export const Header = () => {
            try {
                const response = await dispatch(loadSearch(searchQuery.trim())).unwrap();
                if(response && response.length >0){
-                   const firstMovie = response[0];
-                   navigate((`/movieInfo/${firstMovie.id}`));
+                   navigate((`/search`));
+
                }else{
                 setSearchError('film not found')
                    setTimeout(() => setSearchError(null),1500)
