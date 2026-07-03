@@ -10,7 +10,6 @@ import {MovieList} from "../../movies-list/movie-list/MovieList.tsx";
 import {PopularMoviesPosterRender} from "../../popular_movies/popular_movies_poster_render/PopularMoviesPosterRender.tsx";
 import {Error} from "../../error/Error.tsx";
 import './style/GenresBadgePageComponentRenderStyle.css';
-import '../../search/style/searchStyle.css'
 import {PopularPosterPreviewRender} from "../../poster_preview/popular_poster_preview_render/PopularPosterPreviewRender.tsx";
 
 export const GenresBadgePageComponentRender = () => {

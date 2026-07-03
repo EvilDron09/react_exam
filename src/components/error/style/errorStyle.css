@@ -1,8 +1,7 @@
 .error{
-    height: 89vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    margin-top: 200px;
 }
 
 .error>h1{

@@ -3,5 +3,9 @@
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;
     grid-row-gap: 10vh;
+    margin-bottom: 20px;
+}
 
+.search{
+    margin-bottom: 20px;
 }

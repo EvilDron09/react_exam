@@ -8,6 +8,7 @@ import type {IGenres} from "../models/genre/IGenres.ts";
 import type {IRating} from "../models/rating/IRating.ts";
 
 
+
 const axiosInstance = axios.create({
     baseURL:`https://api.themoviedb.org/3`,
     headers:{'accept': 'application/json', 'Authorization': `Bearer ${token}`},
@@ -65,4 +66,9 @@ export const postRating = async (movie_id: number, rating:number): Promise<IRati
         movie_id: movie_id,
         rating: rating
     };
+}
+
+export const getFilterSearchMovie = async (query:string, page:number):Promise<IResult[]> =>{
+    const {data} = await axiosInstance.get<IMovie>(`/search/movie?query=${encodeURIComponent(query)}&page=${page}`);
+    return data.results
 }

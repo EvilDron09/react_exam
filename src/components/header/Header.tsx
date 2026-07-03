@@ -2,19 +2,13 @@ import './style/headerStyle.css'
 import {type SyntheticEvent, useState} from "react";
 import {GenreBadgeRender} from "../genres-badge-folder/genres-badge-render/GenreBadgeRender.tsx";
 import {UserInfo} from "../user-info/UserInfo.tsx";
-import {Link, useNavigate} from "react-router-dom";
-import {useAppDispatch} from "../../redux/hooks/useAppDispatch.tsx";
-import {loadSearch} from "../../redux/movieSlice/movieSlice.ts";
+import {createSearchParams, Link, useNavigate} from "react-router-dom";
 import * as React from "react";
-
-
-
 
 
 export const Header = () => {
 
     const navigate = useNavigate();
-    const dispatch = useAppDispatch();
    const [openGenres, setOpenGenres] = useState(false);
    const toggleGenres = () => setOpenGenres(!openGenres);
 
@@ -24,23 +18,19 @@ export const Header = () => {
        e.preventDefault();
        setSearchError(null);
 
-       if(searchQuery.trim()){
-           try {
-               const response = await dispatch(loadSearch(searchQuery.trim())).unwrap();
-               if(response && response.length >0){
-                   navigate((`/search`));
+   const trimmedQuery= searchQuery.trim()
 
-               }else{
-                setSearchError('film not found')
-                   setTimeout(() => setSearchError(null),1500)
-               }
-           }catch (e){
-               console.log(e)
-           }finally {
-               setSearchQuery('')
-           }
-       }
+       if(!trimmedQuery)return;
+       navigate({
+           pathname:'/search',
+           search: createSearchParams({
+                 query:trimmedQuery,
+                   page:'1'
+       }).toString()
+       })
+       setSearchQuery('')
    }
+
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(e.target.value);

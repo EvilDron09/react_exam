@@ -3,9 +3,10 @@ import {MovieList} from "../movies-list/movie-list/MovieList.tsx";
 import {Loading} from "../loading/Loading.tsx";
 import {useAppDispatch} from "../../redux/hooks/useAppDispatch.tsx";
 import {useEffect} from "react";
-import {loadSearch, movieSliceActions} from "../../redux/movieSlice/movieSlice.ts";
+import {movieSliceActions} from "../../redux/movieSlice/movieSlice.ts";
 import {Error} from "../error/Error.tsx";
 import {useSearchParams} from "react-router-dom";
+import '../movies-list/movie-list-render/style/moviesListRenderStyle.css'
 
 export const Search = () => {
 
@@ -18,13 +19,12 @@ export const Search = () => {
         setSearchParams({query:query,page:String(newPage)})
     }
 
-    const {search} = useAppSelector((state) => state.movieSlice);
-    const {loadState, error} = useAppSelector(({movieSlice}) => movieSlice);
+    const {filterSearchMovie,loadState, error} = useAppSelector(({movieSlice}) => movieSlice);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         if(query)
-        dispatch(loadSearch({query, page}));
+        dispatch(movieSliceActions.loadFilterSearchMovie({query, page}));
 
     }, [page,query]);
 
@@ -33,6 +33,12 @@ export const Search = () => {
             top: 0,
         })
     }, [page]);
+
+    useEffect(() => {
+        if (query && page !== 1) {
+            setSearchParams({ query, page: "1" });
+        }
+    }, [query, page, setSearchParams]);
 
 
 
@@ -45,12 +51,12 @@ export const Search = () => {
             {
                 !loadState && <Loading/>
             }
-            <div>
+            <div className={"renderMovie"}>
                 {
-                search.map(movie => <MovieList key={movie.id} item={movie}/>)
+                    filterSearchMovie .map(movie => <MovieList key={movie.id} item={movie}/>)
                 }
             </div>
-            {search && search.length>0 &&(
+            {filterSearchMovie  && filterSearchMovie.length>19 &&(
             <div className={'search'}>
                 <button onClick={() => handlerPage(Math.max(page -1,1) )} disabled={page === 1}>Back</button>
                 <p>{page}</p>
