@@ -7,6 +7,7 @@ import {movieSliceActions} from "../../redux/movieSlice/movieSlice.ts";
 import {Error} from "../error/Error.tsx";
 import {useSearchParams} from "react-router-dom";
 import '../movies-list/movie-list-render/style/moviesListRenderStyle.css'
+import './style/searchStyle.css'
 
 export const Search = () => {
 
@@ -51,6 +52,11 @@ export const Search = () => {
             {
                 !loadState && <Loading/>
             }
+            {filterSearchMovie  && filterSearchMovie.length<1 &&(
+                <div className={"noMovies"}>
+                    <p> Sorry, there are no movies matching this request</p>
+                </div>
+            )}
             <div className={"renderMovie"}>
                 {
                     filterSearchMovie .map(movie => <MovieList key={movie.id} item={movie}/>)
